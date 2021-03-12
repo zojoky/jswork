@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script> 
+    <script> (window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')); </script>
+       
+       <script>
+        //递归
+        var data = {
+              age: 18,
+              name: "liuruchao",
+              education: ["小学", "初中", "高中", "大学", undefined, null],
+              likesFood: new Set(["fish", "banana"]),
+              friends: [
+                    { name: "summer",  sex: "woman"},
+                    { name: "daWen",   sex: "woman"},
+                    { name: "yang",    sex: "man" }  ], 
+              work: { 
+                      time: "2019", 
+                      project: { name: "test",obtain: ["css", "html", "js"]} 
+                    }, 
+              play: function() {    console.log("玩滑板");  }
+          }
+        function deepClone(obj,cloneObj) {
+            for(var i in obj){
+
+               if(typeof obj[i] === 'object' ){
+                   if(obj[i] instanceof Array){
+                    cloneObj[i] =  [];
+                    deepClone(obj[i],cloneObj[i]);
+                   }
+                 else if(obj[i] === null){
+                       cloneObj[i] = obj[i];
+                   }
+                   else if(obj[i].constructor === RegExp){
+                        cloneObj[i] = obj[i];
+                   }
+                   else if(obj[i] instanceof Set) {
+                    //    cloneObj[i] = [];
+                   cloneObj[i] = obj[i];
+                   }
+                   else{
+                       cloneObj[i] =  {};
+                    deepClone(obj[i],cloneObj[i]);
+                   }
+                } 
+                else{
+                    cloneObj[i] = obj[i];
+                }
+         }
+            return cloneObj;
+        }
+        var cloneData = {};
+        deepClone(data,cloneData);
+        console.log(cloneData);
+
+
+        //jQuery.extend
+        var newObj = {};
+        $.extend(true,newObj,data);
+        console.log(newObj);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
