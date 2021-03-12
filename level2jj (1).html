@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //递归
+       var arr = [1, [2, [3, [4, 5]]], 6];
+        var arr1 = [];
+    function even1 (arr) {
+        for(var i = 0;i < arr.length; i++) {
+            // let item = a[i];
+            if(arr[i] instanceof Array){
+                even1(arr[i]);
+            }
+            else{
+                arr1.push(arr[i]);
+            }
+        }
+        return arr1;
+        }
+        //[1,2,3,4,5,6] 
+        console.log(even1(arr));
+        
+    //toString and parseInt
+    var even2 = (arr) => {
+    arr1 = arr.toString().split(',');
+    for( var k in arr1){
+        arr1[k] = parseInt(arr1[k]);
+    } 
+    return arr1;
+    }
+console.log(even2(arr));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
