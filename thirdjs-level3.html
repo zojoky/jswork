@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content {
+            width: 50%;
+        }
+        
+        .content button {
+            padding-left: 10px;
+        }
+        
+        .screen {
+            width: 100%;
+            height: 800px;
+            background-color: rgb(127, 255, 212);
+        }
+        
+        .content input {
+            width: 200px;
+        }
+        
+        .screen {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #ul li {
+            float: left;
+            /* display: inline; */
+            background-color: rgb(255, 199, 201);
+            margin: 3px;
+            transition: 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <input type="text" id="num">
+        <button id='ileft'>上侧入</button>
+        <button id="iright">下侧入</button>
+        <button id="oleft">上侧出</button>
+        <button id="oright">下侧出</button>
+        <button id="resort">重新排序</button>
+        <button id="clear">清空</button>
+        <button id="random">随机生成</button>
+        <div class="screen">
+            <ul id="ul">
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function change() {
+            for (var i = 0; i < down.childElementCount; i++) {
+                down.children[i].style.height = '' + (600 / down.childElementCount) + 'px'
+            }
+
+        }
+
+        function insertAfter(newel, old) {
+            var parent = old.parentNode; //获取旧节点的父元素
+            if (parent.lastChild == old) { //如果父元素的最后一个子节点是old
+                parent.appendChild(newel); //直接添加到parent的最后面
+            } else {
+                parend.insertBefore(newel, old.nextSibling); //否则把新节点插入到旧节点的下一个兄弟节点处
+            }
+
+        }
+
+
+        //获取元素
+        var num = document.getElementById('num')
+        var ileft = document.getElementById('ileft')
+        var iright = document.getElementById('iright')
+        var oleft = document.getElementById('oleft')
+        var oright = document.getElementById('oright')
+        var resort = document.getElementById('resort')
+        var clear = document.getElementById('clear')
+        var random = document.getElementById('random')
+        let down = document.querySelector('ul')
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // Getlength(){
+            //     return 
+            // }
+
+
+
+        ileft.addEventListener('click', function() {
+            let number = num.value
+            let length = ul.length
+            if (number < 10 || number > 100) {
+                alert('请输入10-100整数')
+            } else {
+
+                var li = document.createElement('li')
+                li.innerHTML = num.value
+                li.style.width = '' + number + '%'
+                change()
+                    // li.style.height = ''+(600/down.childElementCount) +  'px'
+
+                ul.insertBefore(li, ul.children[0])
+                    // console.log(ul)
+                down.children[0].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+                down.children[1].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+                for (var i = 2; i < ul.children.length; i++)
+                    down.children[i].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+
+            }
+
+
+        })
+        iright.addEventListener('click', function() {
+            let number = num.value
+            if (number < 10 || number > 100) {
+                alert('请输入10-100整数')
+            } else {
+                var li = document.createElement('li')
+                li.innerHTML = num.value
+                li.style.width = '' + number + '%'
+                change()
+                if (ul.children.length == 0) {
+                    ul.insertBefore(li, ul.children[0])
+                } else {
+                    insertAfter(li, ul.children[ul.children.length - 1])
+                }
+
+                down.children[ul.children.length - 1].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+                down.children[ul.children.length - 2].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+                for (var i = 0; i < ul.children.length - 2; i++)
+                    down.children[i].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+
+            }
+        })
+
+
+        oleft.addEventListener('click', function() {
+            ul.removeChild(ul.children[0])
+            down.children[0].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+            down.children[1].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+            for (var i = 2; i < ul.children.length; i++)
+                down.children[i].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+        })
+        oright.addEventListener('click', function() {
+            ul.removeChild(ul.children[ul.children.length - 1])
+            down.children[ul.children.length - 1].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+            down.children[ul.children.length - 2].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+            for (var i = 0; i < ul.children.length - 2; i++)
+                down.children[i].style.height = '' + ((600 / down.childElementCount) + 1) + 'px'
+        })
+        clear.addEventListener('click', function() {
+            while (ul.hasChildNodes()) //当div下还存在子节点时 循环继续
+            {
+                ul.removeChild(ul.firstChild);
+            }
+        })
+        random.addEventListener('click', function() {
+            for (var i = 0; i < 15; i++) {
+                let rnum = Math.floor(Math.random() * 90 + 10);
+                console.log(rnum)
+                var li = document.createElement('li')
+                li.innerHTML = rnum
+                li.style.width = '' + rnum + '%'
+                ul.insertBefore(li, ul.children[0])
+            }
+            change()
+        })
+        resort.addEventListener('click', function() {
+            let temp = []
+            var i, j;
+            for (j = 0; j < ul.children.length - 1; j++) {
+                for (i = 0; i < ul.children.length - 1 - j; i++)
+                    if (ul.children[i].innerText > ul.children[i + 1].innerText) {
+                        temp[0] = ul.children[i].innerText;
+                        temp[1] = ul.children[i].style.width
+                        ul.children[i].innerText = ul.children[i + 1].innerText;
+                        ul.children[i].style.width = ul.children[i + 1].style.width
+                        ul.children[i + 1].innerText = temp[0];
+                        ul.children[i + 1].style.width = temp[1];
+                    }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
