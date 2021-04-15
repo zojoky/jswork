@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let str = "I'm?���going�??�to�?�take�??�a?�trip�?�to��?daocheng�?�on�?�May ?Day."
+    var reg = /[a-z,A-Z,\',\.,\?]/g;
+    var str1 = str.match(reg);
+    var yh = "'";
+    var kg = " ";
+    str1 = str1.toString();
+    str1 = str1.split(',');
+    str1[30] = 'D';
+    for (var i = 0; i < str1.length; i++) {
+        if (str1[i] == "?" && str1[i + 1] == "?") {
+            for (var j = i; j < str1.length - 1; j++) {
+                str1[j] = str1[j + 1];
+            }
+        }
+    }
+
+    for (var i = 0; i < str1.length; i++) {
+        if (str1[i] == "?") {
+            str1[i] = ' ';
+        }
+    }
+    str1.length = str1.length - 2;
+    str1 = str1.join("");
+    console.log(yh + str1 + yh);
+</script>
+
+<body>
+
+</body>
+
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    for (var j = 0; j < 5; j++) {
+        let t = j;
+        setTimeout(function() {
+            console.log(new Date, t);
+        }, 1000);
+    }
+    console.log(new Date, j);
+
+    // (function(num) {
+    //     setTimeout(function() {
+    //         console.log(num);
+    //     }, num * 1000);
+    // })(i);
+    // console.log(new Date, i);
+</Script>
+
+<body>
+
+</body>
+
+</html>
