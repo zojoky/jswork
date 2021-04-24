@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style1.css">
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+   <div class="container">
+       <div class="input">
+       <input class="inputarea" placeholder="搜索" type="text"> <button>搜索</button>
+    </div>
+       <table>
+           <tr>
+               <th>音乐标题</th>
+               <th>歌手</th>
+               <th>专辑</th>
+           </tr>
+           <tr>
+               <td></td>
+               <td></td>
+               <td></td>
+           </tr>
+           <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+       </table>
+   </div>
+</body>
+<script>
+
+    var key = document.querySelector('input')
+    var tr = document.querySelectorAll('tr')
+    var keyword
+    var songid
+    var songurlsum
+    var flag = false
+    var songurl = []
+    // console.log(key)
+    var btn = document.querySelector('button')
+
+    btn.addEventListener('click',function(){
+        keyword = key.value
+
+        axios.get('http://localhost:3000/search',{
+        params:{
+            keywords:keyword
+        }
+    }).then((res)=>{
+        
+
+        for(var i = 1;i<11;i++){
+
+
+        (function(j){songid=res.data.result.songs[i-1].id
+
+        
+axios.get('http://localhost:3000/song/url',{
+    params:{
+        id:songid
+    }
+}).then((res)=>{
+    // console.log(res.data.data[0].url)
+    // songurl[j-1] = res.data.data[0].url
+    document.querySelectorAll('tr')[j].setAttribute('mp3',res.data.data[0].url)
+
+})})(i)
+        
+
+
+        
+
+        var name = res.data.result.songs[i-1].name
+        // console.log(res.data.result.songs[i-1])
+        var artist = res.data.result.songs[i-1].artists[0].name
+        var album  = res.data.result.songs[i-1].album.name
+        // console.log(res.data.result.songs[0])
+        document.querySelectorAll('tr')[i].querySelectorAll('td')[0].innerText=name
+        document.querySelectorAll('tr')[i].querySelectorAll('td')[1].innerText=artist
+        document.querySelectorAll('tr')[i].querySelectorAll('td')[2].innerText=album
+
+       var sourl = JSON.stringify(songurl)
+        
+        
+        
+        
+    }
+    
+    
+    for(var i =0;i<tr.length;i++){
+       
+        
+        tr[i+1].addEventListener('click',function(){
+            var tourl = this.attributes[0].nodeValue
+            window.open(tourl)
+            })
+
+    }
+    })
+    })
+    
+
+    
+   
+</script>
+</html>
